@@ -1,0 +1,168 @@
+body {
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  background-color: #0d0d0d;
+  color: #b8b8b8;
+  line-height: 1.6;
+}
+
+header {
+  padding: 30px;
+  background-color: #191919;
+  text-align: center;
+  border-bottom: 2px solid #444;
+  font-size: 20px;
+  position: relative;
+}
+
+h1 {
+  margin: 0;
+  color: #ff3333;
+  text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
+}
+
+input[type="text"] {
+  padding: 12px;
+  width: 80%;
+  max-width: 600px;
+  font-size: 16px;
+  margin-top: 20px;
+  border-radius: 5px;
+  border: 2px solid #444;
+  background-color: #333;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #ff0000;
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+button {
+  background-color: #333;
+  color: #fff;
+  border: 2px solid #444;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #444;
+  border-color: #ff3333;
+  color: #ff3333;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
+  background-color: #0d0d0d;
+  gap: 20px;
+}
+
+.scp-result {
+  background-color: #262626;
+  border: 2px solid #444;
+  margin: 15px;
+  padding: 20px;
+  width: 320px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #000;
+  font-family: 'Courier New', Courier, monospace;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.scp-result:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+  border-color: #ff3333;
+}
+
+.scp-result img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.scp-result::before {
+  content: 'SCP-';
+  font-weight: bold;
+  font-size: 18px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #00ff00;
+  background-color: rgba(17, 17, 17, 0.8);
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.scp-result h3 {
+  font-size: 18px;
+  color: #ff6666;
+  margin: 15px 0 10px 0;
+  padding-top: 10px;
+  border-top: 1px solid #444;
+}
+
+.scp-result p {
+  font-size: 14px;
+  color: #b8b8b8;
+  margin-bottom: 15px;
+}
+
+.scp-result a {
+  display: inline-block;
+  font-size: 14px;
+  color: #33cc33;
+  text-decoration: none;
+  padding: 5px 10px;
+  border: 1px solid #33cc33;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.scp-result a:hover {
+  background-color: #33cc33;
+  color: #0d0d0d;
+  text-decoration: none;
+}
+
+/* Анімація завантаження */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.scp-result {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Адаптація для мобільних пристроїв */
+@media (max-width: 768px) {
+  header {
+    padding: 20px;
+  }
+  
+  input[type="text"] {
+    width: 90%;
+  }
+  
+  .scp-result {
+    width: 100%;
+    margin: 10px 0;
+  }
+}

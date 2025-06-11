@@ -1,0 +1,152 @@
+/* Загальні стилі для сторінки */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #0d0d1b;
+  color: #b8b8b8;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #1a1a2e;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  border-bottom: 2px solid #444;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #00b3b3;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #00b3b3;
+}
+
+footer {
+  background-color: #1a1a2e;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  margin-top: 40px;
+  border-top: 2px solid #444;
+}
+
+footer p {
+  font-size: 1rem;
+}
+
+/* Стилі для секції МОГ */
+#mtfList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.mtf-item {
+  background-color: #262626;
+  width: 280px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #444;
+}
+
+.mtf-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.mtf-item img {
+  width: 150px; 
+  height: auto; 
+  border-radius: 8px; 
+  display: block;
+  margin: 0 auto;
+}
+
+.mtf-item h3 {
+  font-size: 1.5rem;
+  margin-top: 15px;
+  color: #00b3b3;
+}
+
+.mtf-item p {
+  color: #999;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.mtf-item .mtf-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  text-align: center;
+}
+
+.mtf-item .mtf-button:hover {
+  background-color: #0056b3;
+}
+
+.mtf-item .mtf-button:focus {
+  outline: none;
+}
+
+/* Джерела інформації */
+.mtf-source {
+  display: block;
+  margin-top: 10px;
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.mtf-source:hover {
+  text-decoration: underline;
+}
+
+/* Адаптивність для малих екранів */
+@media (max-width: 768px) {
+  #mtfList {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mtf-item {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+}

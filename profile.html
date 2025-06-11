@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Профіль</title>
+  <link rel="stylesheet" href="css/profile.css">
+  <script src="java/profile.js" defer></script>
+</head>
+<body>
+  <div class="profile-container">
+    <h1>Профіль користувача</h1>
+    <p><strong>Нікнейм:</strong> <span id="nickname">Завантаження...</span></p>
+    <button id="logoutButton">Вийти</button>
+  </div>
+
+  <script>
+    // Додавання функціональності для кнопки виходу
+    document.getElementById('logoutButton').addEventListener('click', function() {
+      // Очищення збережених даних користувача (як приклад)
+      localStorage.removeItem('user');
+      
+      // Перенаправлення на сторінку входу
+      window.location.href = 'login.html'; // Заміни на відповідну сторінку входу
+    });
+  </script>
+</body>
+</html>

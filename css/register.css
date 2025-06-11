@@ -1,0 +1,395 @@
+/* Базові стилі та змінні */
+:root {
+  --primary: #e74c3c;
+  --primary-dark: #c0392b;
+  --primary-light: #ff6b5b;
+  --dark: #0d0d0d;
+  --darker: #050505;
+  --dark-light: #1a1a1a;
+  --light: #e0e0e0;
+  --light-dark: #b0b0b0;
+  --danger: #ff4d4d;
+  --warning: #f39c12;
+  --success: #2ecc71;
+  --info: #3498db;
+  --border: #333333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', 'Share Tech Mono', monospace;
+  background-color: var(--dark);
+  color: var(--light);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../images/scp-bg-pattern.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 13, 13, 0.9);
+  z-index: -1;
+}
+
+/* Контейнер реєстрації */
+.registration-container {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--darker);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(231, 76, 60, 0.2);
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Шапка форми */
+.registration-header {
+  padding: 30px;
+  text-align: center;
+  background: linear-gradient(to right, var(--darker), var(--dark));
+  border-bottom: 1px solid var(--primary);
+}
+
+.scp-logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+}
+
+.scp-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(231, 76, 60, 0.7));
+}
+
+.registration-header h1 {
+  font-size: 24px;
+  letter-spacing: 3px;
+  color: var(--primary);
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--light-dark);
+  letter-spacing: 1px;
+}
+
+/* Форма реєстрації */
+.registration-form-container {
+  padding: 30px;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: var(--light-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-group label i {
+  color: var(--primary);
+}
+
+.input-hint {
+  font-size: 12px;
+  color: var(--light-dark);
+  margin-top: -5px;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-input input {
+  padding-right: 40px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--light-dark);
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.toggle-password:hover {
+  color: var(--primary);
+}
+
+.password-strength {
+  margin-top: 5px;
+}
+
+.strength-bar {
+  height: 4px;
+  background-color: var(--dark);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 3px;
+}
+
+.strength-bar::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 0;
+  background-color: var(--danger);
+  transition: width 0.3s, background-color 0.3s;
+}
+
+#strengthText {
+  font-size: 12px;
+  color: var(--light-dark);
+}
+
+input, select {
+  padding: 12px 15px;
+  background-color: var(--dark);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--light);
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.3);
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e74c3c'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+/* Чекбокс умов */
+.terms-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.terms-group input {
+  width: auto;
+}
+
+.terms-link {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+/* Кнопка реєстрації */
+.register-btn {
+  padding: 14px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.register-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+}
+
+.register-btn:active {
+  transform: translateY(0);
+}
+
+/* Футер форми */
+.form-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--light-dark);
+}
+
+.login-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Повідомлення про безпеку */
+.security-notice {
+  margin-top: 30px;
+  padding: 15px;
+  background-color: rgba(231, 76, 60, 0.1);
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--light-dark);
+}
+
+.security-notice p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.security-notice p:last-child {
+  margin-bottom: 0;
+}
+
+.security-notice i {
+  color: var(--primary);
+}
+
+.warning {
+  color: var(--warning);
+}
+
+/* Рівень перевірки */
+.clearance-level {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--light-dark);
+}
+
+.level-bar {
+  width: 100%;
+  height: 6px;
+  background-color: var(--dark);
+  border-radius: 3px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.level-progress {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(to right, var(--primary), var(--primary-light));
+  border-radius: 3px;
+  transition: width 1s ease-in-out;
+}
+
+/* Сповіщення SCP */
+.scp-alert {
+  position: fixed;
+  bottom: -100px;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to right, #7e0000, var(--primary));
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  z-index: 100;
+  transition: transform 0.5s ease-in-out;
+}
+
+.scp-alert.show {
+  transform: translateY(-100px);
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Анімації */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+/* Підказки про помилки */
+.error-message {
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 5px;
+  display: none;
+}
+
+/* Адаптивність */
+@media (max-width: 500px) {
+  .registration-container {
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .registration-header {
+    padding: 20px;
+  }
+  
+  .registration-form-container {
+    padding: 20px;
+  }
+}

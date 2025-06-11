@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чат SCP Foundation</title>
+  <link rel="stylesheet" href="css/chat.css">
+  <script src="java/chat.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Чат SCP Foundation</h1>
+    <a href="index.html" class="go-back-button">На головну</a>
+  </header>
+
+  <div class="chat-container">
+    <div id="messages" class="messages"></div>
+
+    <div class="message-input">
+      <input type="text" id="chatMessage" placeholder="Напишіть повідомлення...">
+      <button onclick="sendMessage()">Відправити</button>
+      <button onclick="deleteLastMessage()">Видалити останнє повідомлення</button>
+    </div>
+  </div>
+
+  <footer>
+    Фанатський проєкт, створений з любов'ю до SCP. Усі права належать авторам відповідних об'єктів та історій.
+  </footer>
+</body>
+</html>
