@@ -1,0 +1,162 @@
+body {
+  font-family: 'Roboto', sans-serif; /* Використовуємо спільний шрифт */
+  margin: 0;
+  padding: 0;
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+}
+
+/* Переконайтесь, що стилі header та footer не конфліктують, вони беруться з main.css */
+
+main {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.contacts-section {
+  background-color: #1a1a1a;
+  padding: 30px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.contacts-section h2 {
+  color: #cc0000;
+  margin-bottom: 20px;
+  font-size: 2.2em;
+}
+
+.contacts-section p {
+  margin-bottom: 20px;
+  color: #c0c0c0;
+}
+
+.contact-info {
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.contact-info p {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.contact-info i {
+  color: #cc0000;
+  font-size: 1.3em;
+}
+
+.contact-form-container {
+  background-color: #0d0d0d;
+  border: 1px solid #333;
+  padding: 25px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left; /* Вирівнюємо форму ліворуч всередині контейнера */
+}
+
+.contact-form-container h3 {
+  color: #cc0000;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+}
+
+.contact-form .form-group {
+  margin-bottom: 15px;
+}
+
+.contact-form .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+.contact-form .form-group input[type="text"],
+.contact-form .form-group input[type="email"],
+.contact-form .form-group textarea {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #cc0000;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box; /* Важливо для адаптивності */
+}
+
+.contact-form .form-group input:focus,
+.contact-form .form-group textarea:focus {
+  outline: none;
+  border-color: #ff3333;
+  box-shadow: 0 0 8px rgba(204, 0, 0, 0.5);
+}
+
+.contact-form textarea {
+  resize: vertical; /* Дозволяє користувачу змінювати розмір по вертикалі */
+}
+
+.contact-form .btn {
+  display: block; /* Кнопка займає всю ширину контейнера */
+  width: 100%;
+  max-width: 250px; /* Обмежимо ширину кнопки */
+  margin: 20px auto 0 auto; /* Центруємо кнопку */
+  background-color: #cc0000;
+  color: #fff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none; /* Для того, щоб btn виглядав як кнопка, а не посилання */
+}
+
+.contact-form .btn:hover {
+  background-color: #ff3333;
+  transform: translateY(-2px);
+}
+
+/* Адаптивність для contacts.css */
+@media (max-width: 768px) {
+  .contacts-section {
+    padding: 20px;
+  }
+
+  .contacts-section h2 {
+    font-size: 1.8em;
+  }
+
+  .contact-info p {
+    font-size: 1em;
+    flex-direction: column; /* Елементи в стовпець на маленьких екранах */
+    gap: 5px;
+  }
+
+  .contact-form-container {
+    padding: 20px;
+  }
+
+  .contact-form-container h3 {
+    font-size: 1.6em;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form-container {
+    padding: 15px;
+  }
+
+  .contact-form .btn {
+    padding: 10px 20px;
+  }
+}
