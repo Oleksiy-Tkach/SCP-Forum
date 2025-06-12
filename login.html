@@ -3,81 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCP Foundation - Авторизація</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css/login.css">
-  <link rel="icon" href="images/scp-favicon.png" type="image/png">
+  <title>Вхід | Фонд SCP</title>
+  <link rel="stylesheet" href="css/main.css"> <link rel="stylesheet" href="css/register.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="login-container">
-    <div class="login-header">
-      <div class="scp-logo">
-        <img src="images/Fond.gif" alt="SCP Foundation Logo">
-      </div>
-      <h1>ФУНДАЦІЯ SCP</h1>
-      <p class="subtitle">Система авторизації персоналу</p>
+
+  <header>
+    <div class="header-container">
+      <h1><a href="index.html">Фонд SCP</a></h1>
+      <nav>
+        <ul>
+          <li><a href="scp.html">База даних SCP</a></li>
+          <li><a href="news.html">Новини</a></li>
+          <li><a href="contacts.html">Контакти</a></li>
+          <li><a href="register.html">Реєстрація</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <div class="login-form-container">
-      <form id="loginForm" class="login-form">
+  <main>
+    <div class="register-container"> <h2>Вхід в систему</h2>
+      <form class="login-form">
         <div class="form-group">
-          <label for="username">
-            <i class="fas fa-user-shield"></i> Ідентифікатор
-          </label>
-          <input type="text" id="username" name="username" required 
-                 placeholder="Введіть ваш ідентифікатор" autocomplete="username">
+          <label for="login-username">Ім'я користувача:</label>
+          <input type="text" id="login-username" name="username" required>
         </div>
-
         <div class="form-group">
-          <label for="password">
-            <i class="fas fa-lock"></i> Код доступу
-          </label>
-          <div class="password-input">
-            <input type="password" id="password" name="password" required 
-                   placeholder="Введіть ваш код доступу" autocomplete="current-password">
-            <button type="button" class="toggle-password" aria-label="Показати пароль">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
+          <label for="login-password">Пароль:</label>
+          <input type="password" id="login-password" name="password" required>
         </div>
-
-        <div class="form-options">
-          <label class="remember-me">
-            <input type="checkbox" id="remember" name="remember">
-            <span>Запам'ятати мене</span>
-          </label>
-          <a href="#" class="forgot-password">Забули код доступу?</a>
-        </div>
-
-        <button type="submit" class="login-btn">
-          <i class="fas fa-sign-in-alt"></i> УВІЙТИ В СИСТЕМУ
-        </button>
-
-        <div class="form-footer">
-          <p>Немає облікового запису? <a href="register.html" class="register-link">Зареєструватися</a></p>
-        </div>
+        <button type="submit" class="btn login-btn">Увійти</button>
+        <p class="register-prompt">Не маєте облікового запису? <a href="register.html" class="register-link">Зареєструватися</a></p>
       </form>
-
-      <div class="security-notice">
-        <p><i class="fas fa-shield-alt"></i> Ця система захищена протоколами безпеки Фундації SCP</p>
-        <p class="warning"><i class="fas fa-exclamation-triangle"></i> Несанкціонований доступ карається</p>
-      </div>
     </div>
+  </main>
 
-    <div class="clearance-level">
-      <div class="level-bar">
-        <div class="level-progress" id="securityLevel"></div>
-      </div>
-      <p>Рівень безпеки: <span id="levelText">██████</span></p>
-    </div>
-  </div>
-
-  <div class="scp-alert" id="scpAlert">
-    <div class="alert-content">
-      <i class="fas fa-radiation"></i>
-      <p id="alertMessage"></p>
-    </div>
-  </div>
+  <footer>
+    <p>&copy; 2025 Фонд SCP. Усі права захищено.</p>
+  </footer>
 
   <script src="js/login.js"></script>
 </body>
