@@ -1,0 +1,30 @@
+# Залежності
+/node_modules
+/package-lock.json
+/npm-debug.log*
+
+# Змінні середовища
+.env
+.env.txt
+
+# Локальні файли
+.vscode/
+.idea/
+
+# Папка для збірки React
+/build
+
+# Старі html-файли
+/chaos.html
+/chat.html
+/goc.html
+/home.html
+/index.html
+/login.html
+/mtf.html
+/profile.html
+/register.html
+/scp.html
+
+# Файли, що генеруються
+*.log
