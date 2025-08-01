@@ -1,0 +1,10 @@
+# Залежності
+/node_modules
+/package-lock.json
+
+# Змінні середовища
+.env
+.env.txt
+
+# Логи
+npm-debug.log*

@@ -3,21 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Сторінка SCP</title>
-  <link rel="stylesheet" href="css/scp.css">
+  <title>База даних SCP | Фонд SCP</title>
+  <link rel="stylesheet" href="css/scp.css"> <link rel="stylesheet" href="css/scp.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
   <header>
-    <div class="header-content">
-      <h1>База даних SCP</h1>
-      <input type="text" id="searchInput" placeholder="Пошук за назвою або номером...">
-      <button onclick="window.location.href='index.html'">На головну</button>
+    <div class="header-container">
+      <h1><a href="index.html">Фонд SCP</a></h1>
+      <nav>
+        <ul>
+          <li><a href="scp.html">База даних SCP</a></li>
+          <li><a href="news.html">Новини</a></li>
+          <li><a href="contacts.html">Контакти</a></li>
+          <li><a href="register.html">Реєстрація</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
-  
-  <main id="searchResults">
-    <!-- Результати пошуку будуть додані тут -->
+
+  <main>
+    <section class="scp-database-section">
+      <h2>База даних SCP-об'єктів</h2>
+      <p>Тут ви можете переглядати та фільтрувати інформацію про утримані аномалії.</p>
+
+      <div class="filter-section">
+        <label for="scpSearch">Пошук за номером SCP:</label>
+        <input type="text" id="scpSearch" placeholder="Наприклад, SCP-049">
+      </div>
+
+      <div class="scp-list" id="scpList">
+        <p>Завантаження даних SCP...</p>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2025 Фонд SCP. Усі права захищено.</p>
+  </footer>
 
   <script src="java/scp-database.js"></script>
 </body>

@@ -1,0 +1,111 @@
+body {
+  font-family: 'Roboto', sans-serif; /* Використовуємо спільний шрифт */
+  margin: 0;
+  padding: 0;
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+}
+
+/* Переконайтесь, що стилі header та footer не конфліктують, вони беруться з main.css */
+
+main {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.news-section {
+  background-color: #1a1a1a;
+  padding: 30px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.news-section h2 {
+  color: #cc0000;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.2em;
+}
+
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.news-item {
+  background-color: #0d0d0d;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.news-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(204, 0, 0, 0.4);
+}
+
+.news-item h3 {
+  color: #e0e0e0; /* Змінив колір заголовка новини */
+  font-size: 1.5em;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.news-item .news-date {
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.news-item p {
+  font-size: 0.95em;
+  color: #c0c0c0;
+  margin-bottom: 20px;
+}
+
+.news-item .btn {
+  background-color: #333;
+  border: 1px solid #cc0000;
+  color: #e0e0e0;
+  padding: 8px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.news-item .btn:hover {
+  background-color: #cc0000;
+  border-color: #ff3333;
+  color: #fff;
+}
+
+/* Адаптивність для news.css */
+@media (max-width: 768px) {
+  .news-section {
+    padding: 20px;
+  }
+
+  .news-section h2 {
+    font-size: 1.8em;
+  }
+
+  .news-list {
+    grid-template-columns: 1fr; /* Один стовпець на мобільних */
+  }
+}
+
+@media (max-width: 480px) {
+  .news-item {
+    padding: 15px;
+  }
+
+  .news-item h3 {
+    font-size: 1.3em;
+  }
+}

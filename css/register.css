@@ -1,395 +1,246 @@
-/* Базові стилі та змінні */
-:root {
-  --primary: #e74c3c;
-  --primary-dark: #c0392b;
-  --primary-light: #ff6b5b;
-  --dark: #0d0d0d;
-  --darker: #050505;
-  --dark-light: #1a1a1a;
-  --light: #e0e0e0;
-  --light-dark: #b0b0b0;
-  --danger: #ff4d4d;
-  --warning: #f39c12;
-  --success: #2ecc71;
-  --info: #3498db;
-  --border: #333333;
-}
-
-* {
+body {
+  font-family: 'Roboto', sans-serif; /* Використовуємо спільний шрифт */
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  background-color: #0d0d0d;
+  color: #e0e0e0;
 }
 
-body {
-  font-family: 'Courier New', 'Share Tech Mono', monospace;
-  background-color: var(--dark);
-  color: var(--light);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
+/* Переконайтесь, що стилі header та footer не конфліктують, вони беруться з main.css */
+
+main {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: auto;
+  display: flex; /* Для центрування форм та блоку попередження */
+  flex-direction: column;
   align-items: center;
-  background-image: url('../images/scp-bg-pattern.png');
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  overflow: hidden;
 }
 
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(13, 13, 13, 0.9);
-  z-index: -1;
-}
-
-/* Контейнер реєстрації */
-.registration-container {
-  width: 100%;
-  max-width: 500px;
-  background-color: var(--darker);
-  border: 1px solid var(--primary);
+.register-container {
+  background-color: #1a1a1a;
+  padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 0 30px rgba(231, 76, 60, 0.2);
-  overflow: hidden;
-  animation: fadeIn 0.5s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Шапка форми */
-.registration-header {
-  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%; /* Забезпечуємо адаптивність */
   text-align: center;
-  background: linear-gradient(to right, var(--darker), var(--dark));
-  border-bottom: 1px solid var(--primary);
+  margin-bottom: 30px;
 }
 
-.scp-logo {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 15px;
+.register-container h2 {
+  color: #cc0000;
+  margin-bottom: 25px;
+  font-size: 2em;
 }
 
-.scp-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 5px rgba(231, 76, 60, 0.7));
-}
-
-.registration-header h1 {
-  font-size: 24px;
-  letter-spacing: 3px;
-  color: var(--primary);
-  margin-bottom: 5px;
-  text-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
-}
-
-.subtitle {
-  font-size: 14px;
-  color: var(--light-dark);
-  letter-spacing: 1px;
-}
-
-/* Форма реєстрації */
-.registration-form-container {
-  padding: 30px;
-}
-
-.registration-form {
+.registration-form, .login-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  text-align: left;
 }
 
 .form-group label {
-  font-size: 14px;
-  color: var(--light-dark);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.form-group label i {
-  color: var(--primary);
-}
-
-.input-hint {
-  font-size: 12px;
-  color: var(--light-dark);
-  margin-top: -5px;
-}
-
-.password-input {
-  position: relative;
-}
-
-.password-input input {
-  padding-right: 40px;
-}
-
-.toggle-password {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--light-dark);
-  cursor: pointer;
-  font-size: 16px;
-  transition: color 0.3s;
-}
-
-.toggle-password:hover {
-  color: var(--primary);
-}
-
-.password-strength {
-  margin-top: 5px;
-}
-
-.strength-bar {
-  height: 4px;
-  background-color: var(--dark);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 3px;
-}
-
-.strength-bar::before {
-  content: '';
   display: block;
-  height: 100%;
-  width: 0;
-  background-color: var(--danger);
-  transition: width 0.3s, background-color 0.3s;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #e0e0e0;
 }
 
-#strengthText {
-  font-size: 12px;
-  color: var(--light-dark);
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #cc0000;
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box; /* Важливо для адаптивності */
 }
 
-input, select {
-  padding: 12px 15px;
-  background-color: var(--dark);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  color: var(--light);
-  font-family: 'Courier New', monospace;
-  transition: all 0.3s;
-}
-
-input:focus, select:focus {
+.form-group input:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.3);
+  border-color: #ff3333;
+  box-shadow: 0 0 8px rgba(204, 0, 0, 0.5);
 }
 
-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e74c3c'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 16px;
-}
-
-/* Чекбокс умов */
-.terms-group {
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  margin: 15px 0;
-}
-
-.terms-group input {
-  width: auto;
-}
-
-.terms-link {
-  color: var(--primary);
-  text-decoration: none;
-}
-
-.terms-link:hover {
-  text-decoration: underline;
-}
-
-/* Кнопка реєстрації */
-.register-btn {
-  padding: 14px;
-  background-color: var(--primary);
-  color: white;
+.btn.register-btn, .btn.login-btn {
+  background-color: #cc0000;
+  color: #fff;
+  padding: 12px 25px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   font-weight: bold;
-  letter-spacing: 1px;
   cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%; /* Кнопки займають всю ширину */
+  max-width: 250px; /* Обмежимо ширину кнопки */
+  margin: 15px auto 0 auto; /* Центруємо кнопку */
 }
 
-.register-btn:hover {
-  background-color: var(--primary-dark);
+.btn.register-btn:hover, .btn.login-btn:hover {
+  background-color: #ff3333;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
 }
 
-.register-btn:active {
-  transform: translateY(0);
-}
-
-/* Футер форми */
-.form-footer {
-  text-align: center;
+.login-prompt, .register-prompt {
   margin-top: 20px;
-  font-size: 14px;
-  color: var(--light-dark);
+  font-size: 0.95em;
+  color: #c0c0c0;
 }
 
-.login-link {
-  color: var(--primary);
+.login-link, .register-link {
+  color: #cc0000;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-.login-link:hover {
+.login-link:hover, .register-link:hover {
+  color: #ff3333;
   text-decoration: underline;
 }
 
-/* Повідомлення про безпеку */
 .security-notice {
-  margin-top: 30px;
-  padding: 15px;
-  background-color: rgba(231, 76, 60, 0.1);
-  border: 1px solid var(--primary);
-  border-radius: 4px;
-  font-size: 13px;
-  color: var(--light-dark);
+  background-color: #0d0d0d;
+  border: 1px solid #cc0000;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 25px;
+  text-align: center;
 }
 
 .security-notice p {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  margin: 0;
+  color: #e0e0e0;
+  font-size: 0.9em;
 }
 
-.security-notice p:last-child {
-  margin-bottom: 0;
+.security-notice .warning {
+  color: #ff3333;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-.security-notice i {
-  color: var(--primary);
+/* -------------------- Clearance Level & SCP Alert -------------------- */
+.clearance-notice-wrapper {
+    display: none; /* За замовчуванням прихований */
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
 }
 
-.warning {
-  color: var(--warning);
+.clearance-notice-wrapper.visible {
+    display: block;
+    opacity: 1;
 }
 
-/* Рівень перевірки */
 .clearance-level {
-  margin-top: 30px;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   text-align: center;
-  font-size: 13px;
-  color: var(--light-dark);
+  margin-bottom: 20px;
 }
 
 .level-bar {
   width: 100%;
-  height: 6px;
-  background-color: var(--dark);
-  border-radius: 3px;
-  margin-bottom: 8px;
+  background-color: #333;
+  height: 10px;
+  border-radius: 5px;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .level-progress {
+  width: 0%; /* Буде керуватися JS */
   height: 100%;
-  width: 0;
-  background: linear-gradient(to right, var(--primary), var(--primary-light));
-  border-radius: 3px;
-  transition: width 1s ease-in-out;
+  background-color: #00cc00; /* Зелений для прогресу */
+  border-radius: 5px;
 }
 
-/* Сповіщення SCP */
-.scp-alert {
-  position: fixed;
-  bottom: -100px;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(to right, #7e0000, var(--primary));
-  color: white;
-  padding: 15px;
-  text-align: center;
+.clearance-level p {
+  margin: 0;
+  font-size: 1.1em;
+  color: #e0e0e0;
+}
+
+.clearance-level #levelText {
   font-weight: bold;
-  z-index: 100;
-  transition: transform 0.5s ease-in-out;
+  color: #00ff00;
 }
 
-.scp-alert.show {
-  transform: translateY(-100px);
+.scp-alert {
+  background-color: #2a0a0a; /* Темно-червоний фон */
+  border: 2px solid #cc0000;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(204, 0, 0, 0.7);
+  text-align: center;
 }
 
-.alert-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  max-width: 1200px;
-  margin: 0 auto;
+.scp-alert .alert-content i {
+  font-size: 3em;
+  color: #cc0000;
+  margin-bottom: 15px;
 }
 
-/* Анімації */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
+.scp-alert .alert-content p {
+  font-size: 1.2em;
+  color: #e0e0e0;
+  margin: 0;
 }
 
-.shake {
-  animation: shake 0.5s;
-}
-
-/* Підказки про помилки */
-.error-message {
-  color: var(--danger);
-  font-size: 12px;
-  margin-top: 5px;
-  display: none;
-}
-
-/* Адаптивність */
-@media (max-width: 500px) {
-  .registration-container {
-    width: 95%;
-    margin: 0 auto;
-  }
-  
-  .registration-header {
+/* Адаптивність для register.css */
+@media (max-width: 768px) {
+  .register-container {
     padding: 20px;
   }
-  
-  .registration-form-container {
-    padding: 20px;
+
+  .register-container h2 {
+    font-size: 1.8em;
+  }
+
+  .form-group input {
+    font-size: 0.95em;
+  }
+
+  .btn.register-btn, .btn.login-btn {
+    padding: 10px 20px;
+  }
+
+  .clearance-level, .scp-alert {
+    padding: 15px;
+  }
+
+  .scp-alert .alert-content i {
+    font-size: 2.5em;
+  }
+
+  .scp-alert .alert-content p {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    padding: 15px;
+  }
+
+  .security-notice {
+    padding: 15px;
+  }
+
+  .clearance-level, .scp-alert {
+    padding: 10px;
   }
 }

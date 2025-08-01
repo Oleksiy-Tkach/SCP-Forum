@@ -3,81 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCP Foundation - Реєстрація персоналу</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css/register.css">
-  <link rel="icon" href="images/scp-favicon.png" type="image/png">
+  <title>Реєстрація | Фонд SCP</title>
+  <link rel="stylesheet" href="css/main.css"> <link rel="stylesheet" href="css/register.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="registration-container">
-    <div class="registration-header">
-      <div class="scp-logo">
-        <img src="images/scp-logo-red.png" alt="SCP Foundation Logo">
-      </div>
-      <h1>РЕЄСТРАЦІЯ ПЕРСОНАЛУ</h1>
-      <p class="subtitle">Форма заповнення даних для нового співробітника</p>
+
+  <header>
+    <div class="header-container">
+      <h1><a href="index.html">Фонд SCP</a></h1>
+      <nav>
+        <ul>
+          <li><a href="scp.html">База даних SCP</a></li>
+          <li><a href="news.html">Новини</a></li>
+          <li><a href="contacts.html">Контакти</a></li>
+          <li><a href="register.html">Реєстрація</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <div class="registration-form-container">
-      <form id="registerForm" class="registration-form">
+  <main>
+    <div class="register-container">
+      <h2>Реєстрація в системі</h2>
+      <form class="registration-form">
         <div class="form-group">
-          <label for="username">
-            <i class="fas fa-user-tag"></i> Ідентифікатор
-          </label>
-          <input type="text" id="username" name="username" required 
-                 placeholder="Введіть унікальний ідентифікатор" autocomplete="username">
-          <div class="input-hint">Мінімум 5 символів, лише латинські літери та цифри</div>
+          <label for="username">Ім'я користувача:</label>
+          <input type="text" id="username" name="username" required>
         </div>
-
         <div class="form-group">
-          <label for="password">
-            <i class="fas fa-key"></i> Код доступу
-          </label>
-          <div class="password-input">
-            <input type="password" id="password" name="password" required 
-                   placeholder="Створіть надійний код доступу" autocomplete="new-password">
-            <button type="button" class="toggle-password" aria-label="Показати пароль">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-          <div class="password-strength">
-            <div class="strength-bar" id="strengthBar"></div>
-            <span id="strengthText">Надійність коду</span>
-          </div>
+          <label for="password">Пароль:</label>
+          <input type="password" id="password" name="password" required>
         </div>
-
         <div class="form-group">
-          <label for="confirmPassword">
-            <i class="fas fa-check-circle"></i> Підтвердження коду
-          </label>
-          <input type="password" id="confirmPassword" name="confirmPassword" required 
-                 placeholder="Повторіть ваш код доступу" autocomplete="new-password">
+          <label for="confirm-password">Підтвердіть пароль:</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
         </div>
-
-        <div class="form-group">
-          <label for="clearanceLevel">
-            <i class="fas fa-shield-alt"></i> Бажаний рівень доступу
-          </label>
-          <select id="clearanceLevel" name="clearanceLevel" required>
-            <option value="" disabled selected>Оберіть рівень доступу</option>
-            <option value="1">1 - Дослідник</option>
-            <option value="2">2 - Старший дослідник</option>
-            <option value="3">3 - Керівник проєкту</option>
-          </select>
-        </div>
-
-        <div class="form-group terms-group">
-          <input type="checkbox" id="terms" name="terms" required>
-          <label for="terms">Я погоджуюсь з <a href="#" class="terms-link">Протоколами безпеки Фундації</a></label>
-        </div>
-
-        <button type="submit" class="register-btn">
-          <i class="fas fa-user-plus"></i> ЗАРЕЄСТРУВАТИСЯ
-        </button>
-
-        <div class="form-footer">
-          <p>Вже маєте обліковий запис? <a href="login.html" class="login-link">Увійти в систему</a></p>
-        </div>
+        <button type="submit" class="btn register-btn">Зареєструватися</button>
+        <p class="login-prompt">Вже маєте обліковий запис? <a href="login.html" class="login-link">Увійти в систему</a></p>
       </form>
 
       <div class="security-notice">
@@ -86,20 +50,26 @@
       </div>
     </div>
 
-    <div class="clearance-level">
-      <div class="level-bar">
-        <div class="level-progress" id="securityLevel"></div>
-      </div>
-      <p>Рівень перевірки: <span id="levelText">██████</span></p>
-    </div>
-  </div>
+    <div class="clearance-notice-wrapper" id="clearanceNoticeWrapper">
+        <div class="clearance-level">
+            <div class="level-bar">
+                <div class="level-progress" id="securityLevel"></div>
+            </div>
+            <p>Рівень перевірки: <span id="levelText">██████</span></p>
+        </div>
 
-  <div class="scp-alert" id="scpAlert">
-    <div class="alert-content">
-      <i class="fas fa-radiation"></i>
-      <p id="alertMessage"></p>
+        <div class="scp-alert" id="scpAlert">
+            <div class="alert-content">
+                <i class="fas fa-radiation"></i>
+                <p id="alertMessage"></p>
+            </div>
+        </div>
     </div>
-  </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Фонд SCP. Усі права захищено.</p>
+  </footer>
 
   <script src="js/register.js"></script>
 </body>
