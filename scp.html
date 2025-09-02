@@ -4,18 +4,482 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>База даних SCP | Фонд SCP</title>
-  <link rel="stylesheet" href="css/scp.css"> <link rel="stylesheet" href="css/scp.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #1a1a1a;
+      --bg-card: #0d0d0d;
+      --text-primary: #e0e0e0;
+      --text-secondary: #c0c0c0;
+      --accent-red: #cc0000;
+      --accent-red-hover: #ff3333;
+      --accent-yellow: #ffcc00;
+      --accent-green: #4CAF50;
+      --accent-green-hover: #76FF03;
+      --border-color: #333;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      --shadow-hover: 0 6px 20px rgba(204, 0, 0, 0.4);
+      --transition: all 0.3s ease;
+      --header-height: 80px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(204, 0, 0, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(204, 0, 0, 0.1) 0%, transparent 20%);
+    }
+
+    /* Header Styles */
+    header {
+      background-color: rgba(13, 13, 13, 0.95);
+      border-bottom: 2px solid var(--accent-red);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: var(--header-height);
+    }
+
+    .header-container h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+
+    .header-container h1 a {
+      color: var(--accent-red);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 25px;
+    }
+
+    nav ul li a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-red);
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover {
+      color: var(--accent-red);
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    nav ul li a.active {
+      color: var(--accent-red);
+      background: rgba(204, 0, 0, 0.1);
+    }
+
+    nav ul li a.active::after {
+      width: 100%;
+    }
+
+    /* Main Content */
+    main {
+      padding: 40px 20px;
+      max-width: 1400px;
+      margin: auto;
+      width: 100%;
+      flex: 1;
+    }
+
+    .scp-database-section {
+      background-color: var(--bg-secondary);
+      padding: 40px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scp-database-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+    }
+
+    .scp-database-section h2 {
+      color: var(--accent-red);
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      font-family: 'Orbitron', sans-serif;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .scp-database-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--accent-red);
+      border-radius: 2px;
+    }
+
+    .scp-database-section > p {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .filter-section {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .filter-section label {
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .search-container {
+      position: relative;
+      display: inline-block;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .filter-section input[type="text"] {
+      width: 100%;
+      padding: 14px 20px 14px 45px;
+      border: 2px solid var(--accent-red);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .filter-section input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent-red-hover);
+      box-shadow: 0 0 12px rgba(204, 0, 0, 0.6);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent-red);
+      font-size: 1.2rem;
+    }
+
+    .filter-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-red);
+      color: white;
+      border-color: var(--accent-red);
+    }
+
+    .scp-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .scp-item {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .scp-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--accent-red);
+    }
+
+    .scp-item:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-red);
+    }
+
+    .scp-item h3 {
+      color: var(--accent-red);
+      font-size: 1.8rem;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .scp-item p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+
+    .scp-item .scp-class {
+      font-weight: bold;
+      color: var(--accent-yellow);
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(255, 204, 0, 0.1);
+      border-radius: 4px;
+      margin-bottom: 15px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .scp-item .source-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--accent-green);
+      text-decoration: none;
+      margin-top: 15px;
+      font-weight: 600;
+      transition: var(--transition);
+      align-self: flex-start;
+    }
+
+    .scp-item .source-link:hover {
+      color: var(--accent-green-hover);
+      text-decoration: underline;
+      transform: translateX(5px);
+    }
+
+    .scp-item .source-link::after {
+      content: '→';
+      margin-left: 8px;
+      transition: var(--transition);
+    }
+
+    .scp-item .source-link:hover::after {
+      transform: translateX(3px);
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: var(--bg-secondary);
+      border-top: 2px solid var(--accent-red);
+      padding: 25px 0;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    footer p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Анімації */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .scp-item {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Адаптивність */
+    @media (max-width: 1024px) {
+      .scp-list {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .header-container {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 20px;
+      }
+      
+      .header-container h1 {
+        margin-bottom: 15px;
+      }
+      
+      nav ul li {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 20px 15px;
+      }
+      
+      .scp-database-section {
+        padding: 25px 20px;
+      }
+
+      .scp-database-section h2 {
+        font-size: 2rem;
+      }
+
+      .filter-controls {
+        gap: 10px;
+      }
+      
+      .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .scp-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .scp-item {
+        padding: 20px;
+      }
+
+      .scp-item h3 {
+        font-size: 1.6rem;
+      }
+      
+      .search-container {
+        max-width: 100%;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav ul li {
+        margin: 5px 10px;
+      }
+    }
+
+    /* Стилі для скроллбара */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-red);
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-red-hover);
+    }
+  </style>
 </head>
 <body>
 
   <header>
     <div class="header-container">
-      <h1><a href="index.html">Фонд SCP</a></h1>
+      <h1><a href="index.html"><i class="fas fa-radiation-alt logo"></i> Фонд SCP</a></h1>
       <nav>
         <ul>
-          <li><a href="scp.html">База даних SCP</a></li>
+          <li><a href="index.html">Головна</a></li>
+          <li><a href="scp.html" class="active">База даних SCP</a></li>
           <li><a href="news.html">Новини</a></li>
           <li><a href="contacts.html">Контакти</a></li>
           <li><a href="register.html">Реєстрація</a></li>
@@ -27,23 +491,121 @@
   <main>
     <section class="scp-database-section">
       <h2>База даних SCP-об'єктів</h2>
-      <p>Тут ви можете переглядати та фільтрувати інформацію про утримані аномалії.</p>
+      <p>Тут ви можете переглядати та фільтрувати інформацію про утримані аномалії. Усі дані класифіковані за рівнем доступу.</p>
 
       <div class="filter-section">
         <label for="scpSearch">Пошук за номером SCP:</label>
-        <input type="text" id="scpSearch" placeholder="Наприклад, SCP-049">
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="scpSearch" placeholder="Наприклад, SCP-049">
+        </div>
+        
+        <div class="filter-controls">
+          <button class="filter-btn active">Всі</button>
+          <button class="filter-btn">Safe</button>
+          <button class="filter-btn">Euclid</button>
+          <button class="filter-btn">Keter</button>
+          <button class="filter-btn">Neutralized</button>
+        </div>
       </div>
 
       <div class="scp-list" id="scpList">
-        <p>Завантаження даних SCP...</p>
+        <!-- Приклади SCP-об'єктів -->
+        <div class="scp-item">
+          <h3>SCP-049</h3>
+          <p>Об'єкт, що називає себе "Лікарем Чуми". Вважає, що людство страждає від "чуми", і намагається "лікувати" її.</p>
+          <span class="scp-class">Euclid</span>
+          <a href="#" class="source-link">Детальніше</a>
+        </div>
+        
+        <div class="scp-item">
+          <h3>SCP-173</h3>
+          <p>Скульптура, що складається з бетону та арматурного стрижня з спрей-фарбою. Рухається, коли не знаходиться в прямому зорі.</p>
+          <span class="scp-class">Euclid</span>
+          <a href="#" class="source-link">Детальніше</a>
+        </div>
+        
+        <div class="scp-item">
+          <h3>SCP-096</h3>
+          <p>Гуманоїд істота, що стає сильно агресивною, якщо хтось побачить його обличчя.</p>
+          <span class="scp-class">Euclid</span>
+          <a href="#" class="source-link">Детальніше</a>
+        </div>
+        
+        <div class="scp-item">
+          <h3>SCP-106</h3>
+          <p>Створення, що нагадує старого чоловіка, здатного проходити крізь тверді матеріали та "кислотного кишеню".</p>
+          <span class="scp-class">Keter</span>
+          <a href="#" class="source-link">Детальніше</a>
+        </div>
+        
+        <div class="scp-item">
+          <h3>SCP-999</h3>
+          <p>Жел-like істота оранжевого кольору, що володіє здатністю викликати почуття щастя та радості.</p>
+          <span class="scp-class">Safe</span>
+          <a href="#" class="source-link">Детальніше</a>
+        </div>
+        
+        <div class="scp-item">
+          <h3>SCP-682</h3>
+          <p>Велика рептилієподібна істота, що володіє крайньою здатністю до регенерації та адаптації.</p>
+          <span class="scp-class">Keter</span>
+          <a href="#" class="source-link">Детальніше</a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Фонд SCP. Усі права захищено.</p>
+    <p>&copy; 2025 Фонд SCP. Усі права захищено. Інформація на цьому сайті класифікована за рівнем доступу.</p>
   </footer>
 
-  <script src="java/scp-database.js"></script>
+  <script>
+    // Простий JavaScript для демонстрації фільтрації
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('scpSearch');
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const scpItems = document.querySelectorAll('.scp-item');
+      
+      // Функція пошуку
+      searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        scpItems.forEach(item => {
+          const scpNumber = item.querySelector('h3').textContent.toLowerCase();
+          if (scpNumber.includes(searchTerm)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+      
+      // Функція фільтрації за класом
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Видаляємо активний клас з усіх кнопок
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Додаємо активний клас до поточної кнопки
+          this.classList.add('active');
+          
+          const filterClass = this.textContent.toLowerCase();
+          
+          scpItems.forEach(item => {
+            if (filterClass === 'всі') {
+              item.style.display = 'block';
+            } else {
+              const itemClass = item.querySelector('.scp-class').textContent.toLowerCase();
+              if (itemClass === filterClass) {
+                item.style.display = 'block';
+              } else {
+                item.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>
