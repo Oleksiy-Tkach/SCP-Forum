@@ -1,143 +1,337 @@
-body {
-  font-family: 'Roboto', sans-serif; /* Використовуємо спільний шрифт */
-  margin: 0;
-  padding: 0;
-  background-color: #0d0d0d;
-  color: #e0e0e0;
+:root {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #1a1a1a;
+  --bg-card: #0d0d0d;
+  --text-primary: #e0e0e0;
+  --text-secondary: #c0c0c0;
+  --accent-red: #cc0000;
+  --accent-red-hover: #ff3333;
+  --accent-yellow: #ffcc00;
+  --accent-green: #4CAF50;
+  --accent-green-hover: #76FF03;
+  --border-color: #333;
+  --shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 0 15px rgba(204, 0, 0, 0.4);
+  --transition: all 0.3s ease;
 }
 
-/* Переконайтесь, що стилі header та footer не конфліктують, вони беруться з main.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header стилі залишаються з main.css */
 
 main {
   padding: 40px 20px;
-  max-width: 1200px; /* Збільшимо ширину основного контенту */
+  max-width: 1400px;
   margin: auto;
+  width: 100%;
+  flex: 1;
 }
 
 .scp-database-section {
-  background-color: #1a1a1a;
-  padding: 30px;
-  margin-bottom: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: var(--bg-secondary);
+  padding: 40px;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
 }
 
 .scp-database-section h2 {
-  color: #cc0000;
+  color: var(--accent-red);
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 2.2em;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.scp-database-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: var(--accent-red);
+  border-radius: 2px;
 }
 
 .filter-section {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   text-align: center;
 }
 
 .filter-section label {
   display: block;
-  margin-bottom: 10px;
-  font-size: 1.1em;
-  color: #e0e0e0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.search-container {
+  position: relative;
+  display: inline-block;
+  max-width: 500px;
+  width: 100%;
 }
 
 .filter-section input[type="text"] {
   width: 100%;
-  max-width: 400px;
-  padding: 10px 15px;
-  border: 1px solid #cc0000;
-  background-color: #0d0d0d;
-  color: #e0e0e0;
-  border-radius: 5px;
-  font-size: 1em;
-  box-sizing: border-box; /* Важливо для адаптивності */
+  padding: 14px 20px 14px 45px;
+  border: 2px solid var(--accent-red);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: var(--transition);
 }
 
 .filter-section input[type="text"]:focus {
   outline: none;
-  border-color: #ff3333;
-  box-shadow: 0 0 8px rgba(204, 0, 0, 0.5);
+  border-color: var(--accent-red-hover);
+  box-shadow: 0 0 12px rgba(204, 0, 0, 0.6);
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-red);
+  font-size: 1.2rem;
+}
+
+.filter-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--accent-red);
+  color: white;
+  border-color: var(--accent-red);
 }
 
 .scp-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Адаптивна сітка */
-  gap: 25px;
-  margin-top: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
 }
 
 .scp-item {
-  background-color: #0d0d0d;
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow: hidden; /* Приховуємо все, що виходить за межі */
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.scp-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--accent-red);
 }
 
 .scp-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(204, 0, 0, 0.4);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--accent-red);
 }
 
 .scp-item h3 {
-  color: #cc0000;
-  font-size: 1.6em;
+  color: var(--accent-red);
+  font-size: 1.8rem;
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-weight: 700;
 }
 
 .scp-item p {
-  font-size: 0.95em;
-  color: #c0c0c0;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+  flex-grow: 1;
 }
 
 .scp-item .scp-class {
   font-weight: bold;
-  color: #ffcc00; /* Жовтий для класу */
+  color: var(--accent-yellow);
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(255, 204, 0, 0.1);
+  border-radius: 4px;
+  margin-bottom: 15px;
 }
 
 .scp-item .source-link {
-  display: inline-block;
-  color: #4CAF50; /* Зелений для посилання */
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-green);
   text-decoration: none;
-  margin-top: 10px;
-  font-weight: bold;
-  transition: color 0.3s ease;
+  margin-top: 15px;
+  font-weight: 600;
+  transition: var(--transition);
+  align-self: flex-start;
 }
 
 .scp-item .source-link:hover {
-  color: #76FF03;
+  color: var(--accent-green-hover);
   text-decoration: underline;
+  transform: translateX(5px);
 }
 
-/* Адаптивність для scp.css */
+.scp-item .source-link::after {
+  content: '→';
+  margin-left: 8px;
+  transition: var(--transition);
+}
+
+.scp-item .source-link:hover::after {
+  transform: translateX(3px);
+}
+
+.no-results {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 40px;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+}
+
+.loading {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+
+/* Анімації */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.scp-item {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Адаптивність */
+@media (max-width: 1024px) {
+  .scp-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
+  main {
+    padding: 20px 15px;
+  }
+  
   .scp-database-section {
-    padding: 20px;
+    padding: 25px 20px;
   }
 
   .scp-database-section h2 {
-    font-size: 1.8em;
+    font-size: 2rem;
   }
 
-  .filter-section input[type="text"] {
-    max-width: 100%;
+  .filter-controls {
+    gap: 10px;
   }
-
-  .scp-list {
-    grid-template-columns: 1fr; /* Один стовпець на мобільних */
+  
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
+  .scp-list {
+    grid-template-columns: 1fr;
+  }
+  
   .scp-item {
-    padding: 15px;
+    padding: 20px;
   }
 
   .scp-item h3 {
-    font-size: 1.4em;
+    font-size: 1.6rem;
   }
+  
+  .search-container {
+    max-width: 100%;
+  }
+}
+
+/* Додаткові ефекти для покращення UX */
+.scp-item:nth-child(2n) {
+  animation-delay: 0.1s;
+}
+
+.scp-item:nth-child(3n) {
+  animation-delay: 0.2s;
+}
+
+.scp-item:nth-child(4n) {
+  animation-delay: 0.3s;
+}
+
+/* Стилі для скроллбара */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-red);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-red-hover);
 }
