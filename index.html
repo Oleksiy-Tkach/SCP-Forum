@@ -1,471 +1,530 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SCP Foundation Forum</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/dark-mode.css">
-  <link rel="stylesheet" href="css/alerts.css">
-  <script src="scripts/auth.js" defer></script>
-  <script src="scripts/search.js" defer></script>
-  <script src="scripts/notifications.js" defer></script>
-  <script src="scripts/breach-simulator.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP Foundation - Secure. Contain. Protect.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- CSS стилі тут -->
+    <style>
+        /* Вставте сюди наданий CSS код */
+        :root {
+            --primary: #e74c3c;
+            --primary-dark: #c0392b;
+            /* ... весь наданий CSS код ... */
+        }
+    </style>
 </head>
 <body>
-  <!-- Залиште весь ваш HTML код без змін -->
-  <!-- ... -->
-  
-  <script>
-    // Оновлений JavaScript код
-    document.addEventListener('DOMContentLoaded', function() {
-      // Симуляція завантаження
-      setTimeout(function() {
-        document.getElementById('loading-screen').style.display = 'none';
-      }, 2000);
-      
-      // Перевірка авторизації
-      checkAuthStatus();
-      
-      // Ініціалізація каруселі
-      initCarousel();
-      
-      // Завантаження випадкового SCP
-      loadRandomSCP();
-      
-      // Ініціалізація пошуку
-      initSearch();
-      
-      // Перевірка на випадкову тривогу
-      setTimeout(checkForRandomAlert, 5000);
-      
-      // Додавання обробників для форм
-      document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        handleLogin();
-      });
-      
-      document.getElementById('registerForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        handleRegister();
-      });
-      
-      // Ініціалізація темного режиму
-      if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-      }
-      
-      // Додавання обробника для кнопки теми
-      document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
-    });
-    
-    function checkAuthStatus() {
-      const username = localStorage.getItem('username');
-      const clearance = localStorage.getItem('clearance');
-      
-      if (username) {
-        document.getElementById('authButtons').style.display = 'none';
-        document.getElementById('userPanel').style.display = 'flex';
-        document.getElementById('welcomeUser').textContent = username;
-        document.getElementById('userClearance').textContent = `Рівень ${clearance}`;
-        
-        // Оновлення профілю в сайдбарі
-        updateProfileSummary(username, clearance);
-        
-        // Перевірка доступу до секретної зони
-        if (parseInt(clearance) >= 5) {
-          document.getElementById('secretZone').style.display = 'block';
-        }
-      }
-    }
-    
-    function updateProfileSummary(username, clearance) {
-      const profileSummary = document.getElementById('profileSummary');
-      profileSummary.innerHTML = `
-        <div class="profile-info">
-          <div class="profile-avatar">
-            <i class="fas fa-user-secret"></i>
-          </div>
-          <div class="profile-details">
-            <h5>${username}</h5>
-            <p>Рівень доступу: ${clearance}</p>
-            <p>Статус: Активний</p>
-          </div>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="scp-logo-animation">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <h2>INITIALIZING DATABASE CONNECTION</h2>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <p class="mt-20">SECURITY PROTOCOL ENGAGED</p>
         </div>
-        <div class="profile-actions">
-          <button class="btn btn-profile" onclick="showProfile()">Профіль</button>
-          <button class="btn btn-messages" onclick="showMessages()">
-            <i class="fas fa-envelope"></i>
-          </button>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-logo">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzBlMGUwZSIgc3Ryb2tlPSIjZTc0YzNjIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNMzAgNDAgTDcwIDQwIEw3MCA2MCBMMzAgNjAgTDMwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiNlNzRjM2MiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjZTc0YzNjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlNDUDwvdGV4dD48L3N2Zz4=" alt="SCP Foundation Logo">
+                    <h1>SCP FOUNDATION</h1>
+                    <p class="motto">Secure. Contain. Protect.</p>
+                </div>
+                
+                <div class="header-controls">
+                    <div class="theme-toggle">
+                        <button id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                            <i class="fas fa-sun"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="user-controls" id="guestControls">
+                        <button class="btn btn-login" id="btnLogin">LOGIN</button>
+                        <button class="btn btn-register" id="btnRegister">REGISTER</button>
+                    </div>
+                    
+                    <div class="user-panel" id="userPanel">
+                        <div class="user-greeting">
+                            <span>DR. ██████</span>
+                            <span class="user-clearance">LEVEL 3 CLEARANCE</span>
+                        </div>
+                        <button class="btn btn-profile"><i class="fas fa-user"></i></button>
+                        <button class="btn btn-logout"><i class="fas fa-sign-out-alt"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
-      `;
-    }
-    
-    function initCarousel() {
-      const items = document.querySelectorAll('.featured-item');
-      let currentItem = 0;
-      
-      function showItem(index) {
-        items.forEach(item => item.classList.remove('active'));
-        items[index].classList.add('active');
-        currentItem = index;
-      }
-      
-      window.nextFeatured = function() {
-        let nextIndex = currentItem + 1;
-        if (nextIndex >= items.length) nextIndex = 0;
-        showItem(nextIndex);
-      }
-      
-      window.prevFeatured = function() {
-        let prevIndex = currentItem - 1;
-        if (prevIndex < 0) prevIndex = items.length - 1;
-        showItem(prevIndex);
-      }
-      
-      // Автоматична зміна кожні 5 секунд
-      setInterval(nextFeatured, 5000);
-    }
-    
-    function loadRandomSCP() {
-      const randomSCPs = [
-        { id: 'SCP-049', name: 'SCP-049', class: 'Евклід', desc: 'Лікар Чуми', img: 'scp-049.jpg' },
-        { id: 'SCP-106', name: 'SCP-106', class: 'Кетер', desc: 'Старий', img: 'scp-106.jpg' },
-        { id: 'SCP-173', name: 'SCP-173', class: 'Евклід', desc: 'Скульптура', img: 'scp-173.jpg' },
-        { id: 'SCP-682', name: 'SCP-682', class: 'Кетер', desc: 'Незнищенна рептилія', img: 'scp-682.jpg' },
-        { id: 'SCP-999', name: 'SCP-999', class: 'Безпечний', desc: 'Жива істота-желе', img: 'scp-999.jpg' }
-      ];
-      
-      window.revealRandomSCP = function() {
-        const randomSCP = randomSCPs[Math.floor(Math.random() * randomSCPs.length)];
-        const scpElement = document.getElementById('randomSCP');
         
-        scpElement.innerHTML = `
-          <div class="scp-image">
-            <img src="images/${randomSCP.img}" alt="${randomSCP.name}" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17c68c2b345%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17c68c2b345%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2274.4375%22%20y%3D%22104.5%22%3E${randomSCP.name}%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'">
-          </div>
-          <div class="scp-details">
-            <h5>${randomSCP.name}</h5>
-            <p>Клас: ${randomSCP.class}</p>
-            <p>${randomSCP.desc}</p>
-            <a href="scp.html?id=${randomSCP.id}" class="btn btn-read-more">Детальніше <i class="fas fa-arrow-right"></i></a>
-            <button class="btn btn-another" onclick="loadRandomSCP()">Інший SCP</button>
-          </div>
-        `;
-      }
-    }
-    
-    function initSearch() {
-      // Заглушка для ініціалізації пошуку
-      console.log("Пошук ініціалізовано");
-    }
-    
-    function checkForRandomAlert() {
-      // 15% шанс на тривогу
-      if (Math.random() < 0.15) {
-        const scpEvents = [
-          { 
-            code: 'SCP-173', 
-            message: 'SCP-173 утік із камери утримання! Усі персонал повинен уникати прямого зорового контакту.',
-            procedures: [
-              'Не моргати при контакті з SCP-173',
-              'Триматися групами не менше двох осіб',
-              'Чекати інструкцій від МОГ Beta-7 ("Maz Hatters")'
-            ]
-          },
-          { 
-            code: 'SCP-106', 
-            message: 'SCP-106 помічений у Секторі-19. Активовано протокол "Золота людина".',
-            procedures: [
-              'Уникати контакту зі стінами та підлогами',
-              'Не залишатися наодинці',
-              'Чекати інструкцій від МОГ Nu-7 ("Hammer Down")'
-            ]
-          },
-          { 
-            code: 'SCP-096', 
-            message: 'SCP-096 активовано через несанкціоноване спостереження. Усі персонал повинен закрити очі.',
-            procedures: [
-              'Не дивитися на SCP-096',
-              'Не переглядати жодних зображень або відео',
-              'Чекати інструкцій від МОГ Epsilon-11 ("Nine-Tailed Fox")'
-            ]
-          }
-        ];
-        
-        const event = scpEvents[Math.floor(Math.random() * scpEvents.length)];
-        showBreachAlert(event);
-      }
-    }
-    
-    function showBreachAlert(event) {
-      document.getElementById('breachCode').textContent = event.code;
-      document.getElementById('breachMessage').innerHTML = `<p>${event.message}</p>`;
-      
-      const proceduresList = document.getElementById('breachProcedures');
-      proceduresList.innerHTML = '';
-      event.procedures.forEach(proc => {
-        const li = document.createElement('li');
-        li.textContent = proc;
-        proceduresList.appendChild(li);
-      });
-      
-      document.getElementById('breachModal').style.display = 'block';
-      
-      // Додаткові ефекти
-      document.body.classList.add('breach-active');
-      playAlertSound();
-    }
-    
-    function acknowledgeBreach() {
-      document.getElementById('breachModal').style.display = 'none';
-      document.body.classList.remove('breach-active');
-    }
-    
-    function playAlertSound() {
-      // Створення та відтворення звуку через Web Audio API
-      try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.type = 'sawtooth';
-        oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 1);
-        
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 1);
-      } catch (e) {
-        console.log('Не вдалося відтворити звук: ', e);
-      }
-    }
-    
-    // Модальні вікна
-    function showLoginModal() {
-      document.getElementById('loginModal').style.display = 'flex';
-    }
-    
-    function showRegisterModal() {
-      closeModal('loginModal');
-      document.getElementById('registerModal').style.display = 'flex';
-    }
-    
-    function closeModal(modalId) {
-      document.getElementById(modalId).style.display = 'none';
-    }
-    
-    // Функції для обробки форми
-    function handleLogin() {
-      const username = document.getElementById('loginUsername').value;
-      const password = document.getElementById('loginPassword').value;
-      
-      // Симуляція перевірки облікових даних
-      if (username && password) {
-        localStorage.setItem('username', username);
-        localStorage.setItem('clearance', '2'); // Стандартний рівень доступу
-        
-        closeModal('loginModal');
-        checkAuthStatus();
-        
-        // Додаємо сповіщення про успішний вхід
-        addNotification(`Ласкаво просимо, ${username}. Рівень доступу: 2`, 'success');
-      } else {
-        alert('Будь ласка, заповніть всі поля');
-      }
-    }
-    
-    function handleRegister() {
-      const username = document.getElementById('regUsername').value;
-      const email = document.getElementById('regEmail').value;
-      const password = document.getElementById('regPassword').value;
-      const confirmPassword = document.getElementById('regConfirmPassword').value;
-      const clearance = document.getElementById('regClearance').value;
-      
-      if (password !== confirmPassword) {
-        alert('Паролі не співпадають');
-        return;
-      }
-      
-      if (username && email && password) {
-        localStorage.setItem('username', username);
-        localStorage.setItem('clearance', clearance);
-        
-        closeModal('registerModal');
-        checkAuthStatus();
-        
-        // Додаємо сповіщення про успішну реєстрацію
-        addNotification(`Реєстрація успішна. Ласкаво просимо, ${username}.`, 'success');
-      } else {
-        alert('Будь ласка, заповніть всі поля');
-      }
-    }
-    
-    function addNotification(message, type = 'info') {
-      const notificationsList = document.getElementById('notificationsList');
-      const notification = document.createElement('div');
-      notification.className = 'notification-item';
-      
-      let icon = 'info-circle';
-      if (type === 'success') icon = 'check-circle';
-      if (type === 'warning') icon = 'exclamation-circle';
-      if (type === 'danger') icon = 'radiation';
-      
-      notification.innerHTML = `
-        <div class="notification-icon">
-          <i class="fas fa-${icon}"></i>
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link active"><i class="fas fa-home"></i> HOME</a></li>
+                    <li><a href="#" class="nav-link"><i class="fas fa-archive"></i> SCP DATABASE</a></li>
+                    <li><a href="#" class="nav-link"><i class="fas fa-newspaper"></i> NEWS</a></li>
+                    <li><a href="#" class="nav-link"><i class="fas fa-book"></i> LIBRARY</a></li>
+                    <li><a href="#" class="nav-link"><i class="fas fa-exclamation-circle"></i> INCIDENT REPORTS</a></li>
+                    <li><a href="#" class="nav-link"><i class="fas fa-user-shield"></i> PERSONNEL</a></li>
+                    <li><a href="#" class="nav-link"><i class="fas fa-info-circle"></i> ABOUT</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Alert Banner -->
+    <div class="scp-alert">
+        <div class="alert-content">
+            <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="alert-message">WARNING: THE DATABASE IS CLASSIFIED. LEVEL 2 CLEARANCE REQUIRED FOR ACCESS.</div>
+            <button class="alert-close"><i class="fas fa-times"></i></button>
         </div>
-        <div class="notification-content">
-          <p>${message}</p>
-          <span class="notification-time">Щойно</span>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h2><i class="fas fa-shield-alt"></i> FOUNDATION DATABASE</h2>
+            <p>The SCP Foundation is a secret organization entrusted by governments around the globe to contain and study anomalous individuals, entities, locations, objects, and phenomena that defy natural law.</p>
+            
+            <div class="quick-access">
+                <h3>QUICK ACCESS</h3>
+                <div class="quick-access-grid">
+                    <div class="quick-card">
+                        <div class="card-icon"><i class="fas fa-dragon"></i></div>
+                        <h3>EUCLID CLASS</h3>
+                        <p>Unpredictable anomalies requiring containment</p>
+                    </div>
+                    <div class="quick-card">
+                        <div class="card-icon"><i class="fas fa-skull-crossbones"></i></div>
+                        <h3>KETER CLASS</h3>
+                        <p>Extremely dangerous anomalies posing major threat</p>
+                    </div>
+                    <div class="quick-card">
+                        <div class="card-icon"><i class="fas fa-box"></i></div>
+                        <h3>SAFE CLASS</h3>
+                        <p>Anomalies that are reliably contained</p>
+                   div>
+                    <div class="quick-card">
+                        <div class="card-icon"><i class="fas fa-flask"></i></div>
+                        <h3>RESEARCH</h3>
+                        <p>Latest Foundation research papers</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ENTER SCP DESIGNATION (e.g., SCP-173)">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="search-filters">
+                <select id="classFilter">
+                    <option value="">ALL CLASSES</option>
+                    <option value="safe">SAFE</option>
+                    <option value="euclid">EUCLID</option>
+                    <option value="keter">KETER</option>
+                </select>
+                
+                <select id="typeFilter">
+                    <option value="">ALL TYPES</option>
+                    <option value="entity">ENTITY</option>
+                    <option value="object">OBJECT</option>
+                    <option value="location">LOCATION</option>
+                </select>
+            </div>
+            
+            <div class="search-results">
+                <div class="scp-result">
+                    <h4>SCP-173</h4>
+                    <p><strong>Object Class:</strong> <span class="text-primary">Euclid</span></p>
+                    <p>Statue composed of concrete and rebar with Krylon spray paint. Moves when not directly observed.</p>
+                    <a href="#" class="btn-read-more">READ MORE</a>
+                </div>
+                
+                <div class="scp-result">
+                    <h4>SCP-049</h4>
+                    <p><strong>Object Class:</strong> <span class="text-primary">Euclid</span></p>
+                    <p>Humanoid entity believed to be a plague doctor from medieval Europe.</p>
+                    <a href="#" class="btn-read-more">READ MORE</a>
+                </div>
+                
+                <div class="scp-result">
+                    <h4>SCP-096</h4>
+                    <p><strong>Object Class:</strong> <span class="text-primary">Euclid</span></p>
+                    <p>Humanoid creature with extremely aggressive behavior when its face is seen.</p>
+                    <a href="#" class="btn-read-more">READ MORE</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Main Content Column -->
+            <div class="main-content">
+                <!-- Featured SCP -->
+                <section class="featured-content">
+                    <div class="featured-header">
+                        <h3><i class="fas fa-star"></i> FEATURED SCP</h3>
+                        <div class="featured-controls">
+                            <button class="btn-prev"><i class="fas fa-chevron-left"></i></button>
+                            <button class="btn-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-carousel">
+                        <div class="featured-item active">
+                            <div class="featured-image">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgMjAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2U3NGMzYyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zNWVtIj5TQ1AtMDUwIEZJTEUgSU1BR0U8L3RleHQ+PC9zdmc+" alt="SCP-050">
+                            </div>
+                            <div class="featured-details">
+                                <h4>SCP-050</h4>
+                                <div class="object-class">Object Class: <span class="text-primary">Euclid</span></div>
+                                <p>An antique desk that produces written material with seemingly prophetic content. All attempts to damage or alter the desk have failed.</p>
+                                <a href="#" class="btn-read-more">FULL DOCUMENTATION</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- News Section -->
+                <section class="news-section">
+                    <h3><i class="fas fa-newspaper"></i> FOUNDATION NEWS</h3>
+                    
+                    <div class="news-item">
+                        <div class="news-date">2023-10-15 | CLASSIFIED</div>
+                        <h4>Containment Breach at Site-19</h4>
+                        <p>Multiple Euclid-class SCPs breached containment. Mobile Task Forces dispatched. Casualties reported.</p>
+                        <div class="news-meta">
+                            <span class="news-clearance">LEVEL 3 CLEARANCE REQUIRED</span>
+                            <a href="#" class="news-link">READ REPORT <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="news-item">
+                        <div class="news-date">2023-09-28 | CLASSIFIED</div>
+                        <h4>New Research Wing Opened at Site-76</h4>
+                        <p>State-of-the-art research facilities now operational. Focus on cross-testing between anomalous objects.</p>
+                        <div class="news-meta">
+                            <span class="news-clearance">LEVEL 2 CLEARANCE REQUIRED</span>
+                            <a href="#" class="news-link">READ REPORT <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="news-item">
+                        <div class="news-date">2023-09-10 | CLASSIFIED</div>
+                        <h4>MTF Epsilon-11 Successful Mission</h4>
+                        <p>"Nine-Tailed Fox" successfully re-contained SCP-106 after containment breach.</p>
+                        <div class="news-meta">
+                            <span class="news-clearance">LEVEL 2 CLEARANCE REQUIRED</span>
+                            <a href="#" class="news-link">READ REPORT <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Sidebar Column -->
+            <div class="sidebar">
+                <!-- User Profile -->
+                <div class="sidebar-widget profile-summary">
+                    <h4><i class="fas fa-id-card"></i> PERSONNEL PROFILE</h4>
+                    <div class="profile-info">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <div class="profile-details">
+                            <h5>DR. ██████</h5>
+                            <p>Senior Researcher | Site-19</p>
+                            <p>Clearance Level: 3</p>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-profile">PROFILE</button>
+                        <button class="btn btn-messages"><i class="fas fa-envelope"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Notifications -->
+                <div class="sidebar-widget">
+                    <h4><i class="fas fa-bell"></i> NOTIFICATIONS</h4>
+                    <div class="notifications-list">
+                        <div class="notification-item">
+                            <div class="notification-icon"><i class="fas fa-file-alt"></i></div>
+                            <div class="notification-content">
+                                <p>Your report on SCP-458 has been approved</p>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                            <div class="notification-content">
+                                <p>Containment drill scheduled for Friday</p>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon"><i class="fas fa-calendar"></i></div>
+                            <div class="notification-content">
+                                <p>Monthly psych evaluation due</p>
+                                <div class="notification-time">3 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Statistics -->
+                <div class="sidebar-widget">
+                    <h4><i class="fas fa-chart-bar"></i> FOUNDATION STATS</h4>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">4,982</div>
+                            <div class="stat-label">SCPs CONTAINED</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">128</div>
+                            <div class="stat-label">ACTIVE SITES</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">76</div>
+                            <div class="stat-label">MOBILE TASK FORCES</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">CONTAINMENT BREACHES (MTD)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Random SCP -->
+                <div class="sidebar-widget random-scp">
+                    <div class="scp-image">
+                        <div class="image-placeholder"><i class="fas fa-question"></i></div>
+                    </div>
+                    <div class="scp-details">
+                        <h5>RANDOM SCP ENTRY</h5>
+                        <p>Clearance level sufficient. Reveal random SCP documentation?</p>
+                        <button class="btn btn-reveal">REVEAL SCP</button>
+                        <button class="btn btn-another">ANOTHER</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      `;
-      
-      notificationsList.insertBefore(notification, notificationsList.firstChild);
-      
-      // Автоматичне видалення сповіщення через 5 секунд
-      setTimeout(() => {
-        notification.remove();
-      }, 5000);
-    }
-    
-    // Глобальні функції
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    }
-    
-    function logout() {
-      localStorage.removeItem('username');
-      localStorage.removeItem('clearance');
-      
-      document.getElementById('authButtons').style.display = 'block';
-      document.getElementById('userPanel').style.display = 'none';
-      document.getElementById('secretZone').style.display = 'none';
-      
-      // Оновлення профілю в сайдбарі
-      document.getElementById('profileSummary').innerHTML = `
-        <p>Будь ласка, увійдіть в систему для перегляду профілю.</p>
-        <button class="btn btn-login-sidebar" onclick="showLoginModal()">Увійти</button>
-      `;
-      
-      addNotification('Ви вийшли з системи.', 'info');
-    }
-    
-    function showProfile() {
-      alert('Функція профілю в розробці');
-    }
-    
-    function showMessages() {
-      alert('Система повідомлень в розробці');
-    }
-    
-    function checkO5Access() {
-      const password = document.getElementById('o5Password').value;
-      
-      // Простий перевірний код (в реальному застосунку це має бути безпечніше)
-      if (password === 'O5-COMMAND' || password === '05555') {
-        document.querySelector('.zone-lock').style.display = 'none';
-        document.getElementById('zoneContent').style.display = 'block';
-        addNotification('Доступ O5 надано. Ласкаво просимо, Рада O5.', 'success');
-      } else {
-        alert('НЕВІРНИЙ КОД ДОСТУПУ. СПРОБУ ЗАРЕЄСТРОВАНО.');
-        addNotification('Спроба несанкціонованого доступу до зони O5.', 'danger');
-      }
-    }
-    
-    function viewDocument(docId) {
-      const modal = document.getElementById('documentModal');
-      const title = document.getElementById('documentTitle');
-      const content = document.getElementById('documentContent');
-      
-      // Заглушки для документів
-      const documents = {
-        'pandora': {
-          title: 'Проект "Pandora\'s Box"',
-          clearance: 'Рівень доступу: O5',
-          author: 'Автор: Д-р █████',
-          date: 'Дата: ██/██/████',
-          content: '<p>Інформація про проект "Pandora\'s Box" засекречена навіть для більшості членів Ради O5. Лише O5-1 та O5-2 мають повний доступ до цієї інформації.</p><p>Проект стосується потенційного сценарію CK-класу "Повне знищення реальності".</p>'
-        },
-        'scp001': {
-          title: 'Звіт про SCP-001',
-          clearance: 'Рівень доступу: O5',
-          author: 'Автор: Рада O5',
-          date: 'Дата: ██/██/████',
-          content: '<p>Існує кілька пропозицій щодо SCP-001. Жодна з них не може бути підтверджена або спростована без ризику катастрофічних наслідків.</p><p>Деякі з пропозицій включають: "Світовий сад", "Ковчег", "Список", "Фонд" та інші.</p>'
-        },
-        'endworld': {
-          title: 'Протокол "Кінець Світу"',
-          clearance: 'Рівень доступу: O5',
-          author: 'Автор: O5-██',
-          date: 'Дата: ██/██/████',
-          content: '<p>Протокол "Кінець Світу" активується лише у випадку події CK-класу "Повне знищення реальності".</p><p>Протокол включає евакуацію ключового персоналу до Альфа-Бази та активацію системи "Фенікс".</p>'
-        }
-      };
-      
-      if (documents[docId]) {
-        title.textContent = documents[docId].title;
-        document.getElementById('documentClearance').textContent = documents[docId].clearance;
-        document.getElementById('documentAuthor').textContent = documents[docId].author;
-        document.getElementById('documentDate').textContent = documents[docId].date;
-        content.innerHTML = documents[docId].content;
         
-        modal.style.display = 'flex';
-      }
-    }
-    
-    function printDocument() {
-      alert('Функція друку в розробці');
-    }
-    
-    function downloadDocument() {
-      alert('Функція завантаження в розробці');
-    }
-    
-    function searchSCP() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const category = document.getElementById('searchCategory').value;
-      const clearance = document.getElementById('searchClearance').value;
-      
-      // Заглушка для пошуку
-      const resultsContainer = document.getElementById('searchResults');
-      
-      if (query.length < 2) {
-        resultsContainer.innerHTML = '';
-        return;
-      }
-      
-      // Симуляція результатів пошуку
-      resultsContainer.innerHTML = `
-        <div class="scp-result">
-          <h4>SCP-${query.toUpperCase()}</h4>
-          <p class="object-class">Клас об'єкта: █████</p>
-          <p>Результати пошуку для "${query}". Інформація обмежена вашим рівнем доступу.</p>
-          <a href="#" class="btn-read-more">Запит доступу <i class="fas fa-arrow-right"></i></a>
+        <!-- Secret Zone -->
+        <section class="secret-zone">
+            <div class="zone-lock">
+                <div class="lock-icon"><i class="fas fa-lock"></i></div>
+                <h3>RESTRICTED ACCESS ZONE</h3>
+                <p>O5 COUNCIL CLEARANCE REQUIRED</p>
+                
+                <div class="access-form">
+                    <input type="password" id="o5Password" placeholder="O5 COMMAND CODE">
+                    <button class="btn btn-access">REQUEST ACCESS</button>
+                </div>
+            </div>
+            
+            <div class="zone-content">
+                <h3><i class="fas fa-unlock"></i> O5 COUNCIL DATABASE</h3>
+                <p>Welcome, O5-13. You have full administrative access to the Foundation database.</p>
+                
+                <div class="o5-grid">
+                    <div class="o5-item">
+                        <h4>THAUMIEL CLASS SCPs</h4>
+                        <p>List of all SCPs classified as Thaumiel, used to contain other SCPs.</p>
+                        <a href="#" class="btn btn-view">ACCESS</a>
+                    </div>
+                    <div class="o5-item">
+                        <h4>COGNITOHAZARD LOG</h4>
+                        <p>Records of all known cognitohazards and memetic kill agents.</p>
+                        <a href="#" class="btn btn-view">ACCESS</a>
+                    </div>
+                    <div class="o5-item">
+                        <h4>XK-CLASS SCENARIOS</h4>
+                        <p>Documented end-of-the-world scenarios and contingency plans.</p>
+                        <a href="#" class="btn btn-view">ACCESS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5>SCP FOUNDATION</h5>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Mission Statement</a></li>
+                        <li><a href="#">History</a></li>
+                        <li><a href="#">Ethics Committee</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>DATABASE</h5>
+                    <ul>
+                        <li><a href="#">SCP Series</a></li>
+                        <li><a href="#">Object Classes</a></li>
+                        <li><a href="#">Anomaly Types</a></li>
+                        <li><a href="#">Containment Procedures</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>PERSONNEL</h5>
+                    <ul>
+                        <li><a href="#">Research Departments</a></li>
+                        <li><a href="#">Mobile Task Forces</a></li>
+                        <li><a href="#">Security Clearance</a></li>
+                        <li><a href="#">Employment Opportunities</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h5>CONTACT</h5>
+                    <ul>
+                        <li><a href="#">Secure Line</a></li>
+                        <li><a href="#">Report Anomaly</a></li>
+                        <li><a href="#">Whistleblower Protocol</a></li>
+                        <li><a href="#">Information Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <div class="footer-bottom text-center">
+                <p>SECURE. CONTAIN. PROTECT.</p>
+                <p class="disclaimer">The SCP Foundation and all related content are fictional. This is a fan-made website for demonstration purposes only.</p>
+                <p>© 2023 SCP Foundation. All rights reserved.</p>
+            </div>
         </div>
-        <div class="scp-result">
-          <h4>Документ: ${query}</h4>
-          <p>Категорія: ${category}</p>
-          <p>Документ знайдено, але доступ обмежений. Запит підвищення рівня доступу може бути поданий через адміністратора.</p>
-          <a href="#" class="btn-read-more">Запит доступу <i class="fas fa-arrow-right"></i></a>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-sign-in-alt"></i> FOUNDATION LOGIN</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="loginUsername">PERSONNEL ID</label>
+                    <input type="text" id="loginUsername" placeholder="Enter your ID">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">ACCESS CODE</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your code">
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-secondary">CLEAR</button>
+                    <button class="btn btn-primary">LOGIN</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p>Forgot your access code? <a href="#">Contact Site Security</a></p>
+            </div>
         </div>
-      `;
-    }
-    
-    function expandSearch() {
-      document.querySelector('.search-box').classList.add('expanded');
-    }
-    
-    function showRules() {
-      alert('Правила форуму:\n\n1. Не поширюйте інформацію про місцезнаходження об\'єктів\n2. Не намагайтеся відтворити SCP-об\'єкти\n3. Дотримуйтесь свого рівня доступу\n4. Не розголошуйте інформацію про персонал');
-    }
-  </script>
+    </div>
+
+    <!-- SCP Document Viewer Modal -->
+    <div class="modal" id="documentModal">
+        <div class="modal-content document-viewer">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-alt"></i> SCP-173 DOCUMENTATION</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="document-meta">
+                    <span><strong>Object Class:</strong> Euclid</span>
+                    <span><strong>Clearance:</strong> Level 2</span>
+                </div>
+                <div class="document-content">
+                    <p><strong>Special Containment Procedures:</strong> SCP-173 is to be kept in a locked container at all times. When personnel must enter SCP-173's container, no fewer than three may enter at any time and the door is to be relocked behind them. At all times, two persons must maintain direct eye contact with SCP-173 until all personnel have vacated and relocked the container.</p>
+                    <p><strong>Description:</strong> SCP-173 is constructed from concrete and rebar with traces of Krylon brand spray paint. SCP-173 is animate and extremely hostile. The object cannot move while within a direct line of sight. Line of sight must not be broken at any time with SCP-173.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breach Alert Modal -->
+    <div class="modal" id="breachModal">
+        <div class="modal-content breach-alert">
+            <div class="modal-header">
+                <h3><i class="fas fa-radiation"></i> CONTAINMENT BREACH ALERT</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="breach-code">EMERGENCY ALPHA-7 - SITE-19</div>
+                <div class="breach-message">Multiple Euclid and Keter class SCPs have breached containment. Mobile Task Forces have been dispatched. All personnel proceed to emergency shelters immediately.</div>
+                
+                <div class="breach-procedures">
+                    <h4>EMERGENCY PROCEDURES:</h4>
+                    <ol>
+                        <li>Remain calm and proceed to the nearest shelter</li>
+                        <li>Do not attempt to engage hostile SCPs</li>
+                        <li>Await further instructions from security personnel</li>
+                        <li>Report any anomalous activity immediately</li>
+                    </ol>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-acknowledge">ACKNOWLEDGE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript would go here to handle interactivity
+        // For now, we'll just include a basic script to handle the loading screen
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate loading process
+            setTimeout(function() {
+                document.getElementById('loading-screen').style.display = 'none';
+            }, 3000);
+            
+            // Theme toggle functionality
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+            });
+            
+            // Login modal functionality
+            document.getElementById('btnLogin').addEventListener('click', function() {
+                document.getElementById('loginModal').style.display = 'flex';
+            });
+            
+            // Close modals when clicking on X
+            document.querySelectorAll('.modal-close').forEach(function(closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
